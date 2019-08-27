@@ -1,14 +1,21 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
 
 module TiposDatos
 (
 Account,
 defaultAccount,
---Accesor
+--Accesor methods
 phoneNumber,  email, createdVia,  username,  accountId ,  createdAt,  accountDisplayName,
-printTelefono
 
+Profile,
+defaultProfile,
+
+Verified,
+defaultVerified,
+--Accesor methods
+verified
 
 ) where
 
@@ -29,4 +36,19 @@ instance FromJSON Account
 defaultAccount = Account {  phoneNumber = "",  email = "", createdVia ="",  username ="",  accountId ="",  createdAt ="",  accountDisplayName =""}
 
 
-printTelefono account = print (phoneNumber account)
+data Profile = Profile {
+  description :: String,
+  bio :: String,
+  website :: String,
+  location :: String,
+  avatarMediaUrl :: String
+} deriving (Generic, Show)
+instance FromJSON Profile
+defaultProfile = Profile  { description="",bio="",website="",location="",avatarMediaUrl=""}
+
+
+data Verified = Verified {
+  verified :: Bool
+} deriving (Generic, Show)
+instance FromJSON Verified
+defaultVerified = Verified {verified=False}

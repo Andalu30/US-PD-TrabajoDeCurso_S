@@ -24,11 +24,29 @@ verInformacionAccount :: String -> IO()
 verInformacionAccount path = do
   clearScreen
   let account = ParsersArchivos.parseAccount path
-  --putStr $ show $ TiposDatos.printTelefono account
-  putStr "Hello there"
+  account <- account
+
+  putStrLn "Esta es la informacion de la cuenta:\nInformacion basica:"
+  putStrLn $ "\tNombre: "++ accountDisplayName account
+  putStrLn $ "\tUsuario: "++ username account
+  putStrLn $ "\tEmail: "++ email account
+  putStrLn $ "\tTelefono: "++ phoneNumber account
+
+  putStrLn $ "Datos adicionales:\n\tIdentificador de la cuenta: "++ accountId account
+  putStrLn $ "\tFecha de la creación de la cuenta: "++ createdAt account
+  putStrLn $ "\tMétodo de creación de la cuenta: "++ createdVia account
 
 
-verInformacionProfile path = exitSuccess
+verInformacionProfile :: String -> IO()
+verInformacionProfile path = do
+  clearScreen
+  let profile = ParsersArchivos.parseAccount path
+  account <- account
+
+
+
+
+
 verInformacionVerified path = exitSuccess
 verInformacionPhone path = exitSuccess
 
