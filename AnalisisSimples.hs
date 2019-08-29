@@ -25,31 +25,43 @@ verInformacionAccount path = do
   clearScreen
   let account = ParsersArchivos.parseAccount path
   account <- account
-
   putStrLn "Esta es la informacion de la cuenta:\nInformacion basica:"
   putStrLn $ "\tNombre: "++ accountDisplayName account
   putStrLn $ "\tUsuario: "++ username account
   putStrLn $ "\tEmail: "++ email account
   putStrLn $ "\tTelefono: "++ phoneNumber account
-
   putStrLn $ "Datos adicionales:\n\tIdentificador de la cuenta: "++ accountId account
   putStrLn $ "\tFecha de la creación de la cuenta: "++ createdAt account
   putStrLn $ "\tMétodo de creación de la cuenta: "++ createdVia account
 
 
-verInformacionProfile :: String -> IO()
-verInformacionProfile path = do
+
+
+verInformacionVerified :: String -> IO()
+verInformacionVerified path = do
   clearScreen
-  let profile = ParsersArchivos.parseAccount path
-  account <- account
+  let verifiedObj = ParsersArchivos.parseVerified path
+  verifiedObj <- verifiedObj
+  putStrLn "Esta es la informacion de verificación de su cuenta:\nInformacion basica:"
+  putStrLn $ "\t¿Esta su cuenta verificada?: "++ if verified verifiedObj then "Sí, ehnorabuena" else "No"
 
 
 
 
 
-verInformacionVerified path = exitSuccess
-verInformacionPhone path = exitSuccess
 
+
+verInformacionProfile path = exitSuccess
+
+
+
+
+verInformacionPhone :: String -> IO()
+verInformacionPhone path = do
+  clearScreen
+  let phoneObj = ParsersArchivos.parsePhone path
+  phoneObj <- phoneObj
+  putStrLn $ "Este es el número de teléfono asociado a su cuenta: "++ phoneNumber2 phoneObj
 
 
 
