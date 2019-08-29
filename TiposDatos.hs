@@ -23,7 +23,12 @@ phoneNumber2, --accesor
 Tweets,
 Tweet,
 --defaultTweets,
-defaultTweet
+defaultTweet,
+favorite_count,
+retweet_count,
+created_at,
+full_text,
+lang,
 
 ) where
 

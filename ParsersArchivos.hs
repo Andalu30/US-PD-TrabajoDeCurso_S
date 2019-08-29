@@ -7,7 +7,8 @@ module ParsersArchivos
 parseAccount,
 parseProfile,
 parseVerified,
-parsePhone
+parsePhone,
+parseTweets
 ) where
 
 
@@ -100,11 +101,6 @@ modPhoneFile string ="{" ++ (drop 50 $ reverse $ drop 4 $ reverse string)
 
 
 
-
-testing = do
-  let tweets = parseTweets "/home/andalu30/twitter-data/tweet.js"
-  tweets <- tweets
-  putStrLn $ show $ take 10 tweets
 
 --parseTweets :: String -> [Tweet]
 parseTweets path = do
