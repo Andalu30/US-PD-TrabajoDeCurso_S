@@ -4,6 +4,11 @@
 module AnalisisTweets
 (
 Tweets,
+verTweets,
+verRetweets,
+tweetMasRT,
+tweetMasMG,
+idiomas
 ) where
 
 
@@ -124,19 +129,13 @@ idiomas path = do
 
   let index =  fromMaybe 0 (elemIndex (maximum recuento) recuento)
   let maxLang = ids !! index
-  putStr "El idioma mas utilizado en los tweets es:\n\t"
+
+  putStr "Se han utilizado todos idiomas que aparecen a continución.\n\t"
+  print ids
+  putStr "El idioma más utilizado en los tweets es:\n\t"
   print maxLang
 
 cuentaIdiomas [] ac = ac
 cuentaIdiomas (x:xs) ac = do
   let newac = ac ++ [(length x)]
   cuentaIdiomas xs newac
-
-
-
-
-  -- let idioma =
-  --
-  -- putStr "El idioma que mas se ha utilizado es: \n->"
-  -- print $ fst tweetMasRT
-  --

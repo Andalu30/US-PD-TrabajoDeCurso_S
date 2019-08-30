@@ -98,13 +98,13 @@ menutipoAnalisis ruta archivo = do
       2: Abrir en navegador
     -}
     "1" -> AnalisisSimples.verInformacion ruta archivo
-    "2" -> AnalisisSimples.abrirNavegador ruta archivoç
+    "2" -> AnalisisSimples.abrirNavegador ruta archivo
 
-    "3" -> AnalisisTweets.verTweets ruta++"/"++archivo
-    "4" -> AnalisisTweets.verRetweets ruta++"/"++archivo
-    "5" -> AnalisisTweets.tweetMasRT ruta++"/"++archivo
-    "6" -> AnalisisTweets.tweetMasMG ruta++"/"++archivo
-    "7" -> AnalisisTweets.idiomas ruta++"/"++archivo
+    "3" -> AnalisisTweets.verTweets (ruta++"/"++archivo)
+    "4" -> AnalisisTweets.verRetweets (ruta++"/"++archivo)
+    "5" -> AnalisisTweets.tweetMasRT (ruta++"/"++archivo)
+    "6" -> AnalisisTweets.tweetMasMG (ruta++"/"++archivo)
+    "7" -> AnalisisTweets.idiomas (ruta++"/"++archivo)
 
 tipoAnalisis :: String -> [String]
 {-
@@ -115,4 +115,4 @@ tipoAnalisis "account.js" = ["1: Ver informacion", "2: Abrir en navegador"]
 tipoAnalisis "profile.js" = ["1: Ver informacion"]
 tipoAnalisis "verified.js" = ["1: Ver informacion"]
 tipoAnalisis "phone-number.js" = ["1: Ver informacion"]
-tipoAnalisis "tweet.js" = ["3: Ver tweets", "4: Ver Retweets", "5: Tweet mas retweeteado","6: Tweet con más MG","7: Idiomas utilizados"]
+tipoAnalisis "tweet.js" = ["3: Ver tweets", "4: Ver Retweets", "5: Tweet mas retweeteado","6: Tweet con más MG","7: Idiomas mas utilizados"]
