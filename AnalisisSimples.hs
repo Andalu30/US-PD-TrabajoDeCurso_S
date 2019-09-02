@@ -1,7 +1,8 @@
 module AnalisisSimples
 (
 verInformacion,
-abrirNavegador
+abrirNavegador,
+verIconoPerfil
 ) where
 
 
@@ -9,6 +10,7 @@ import System.Exit
 import System.Process
 import ParsersArchivos
 import TiposDatos
+import TiposDatos2
 import System.Console.ANSI
 
 
@@ -29,7 +31,7 @@ verInformacionAccount path = do
   putStrLn $ "\tNombre: "++ accountDisplayName account
   putStrLn $ "\tUsuario: "++ username account
   putStrLn $ "\tEmail: "++ email account
-  putStrLn $ "\tTelefono: "++ phoneNumber account
+  putStrLn $ "\tTelefono: "++ TiposDatos.phoneNumber account
   putStrLn $ "Datos adicionales:\n\tIdentificador de la cuenta: "++ accountId account
   putStrLn $ "\tFecha de la creación de la cuenta: "++ createdAt account
   putStrLn $ "\tMétodo de creación de la cuenta: "++ createdVia account
@@ -51,7 +53,27 @@ verInformacionVerified path = do
 
 
 
-verInformacionProfile path = exitSuccess
+verInformacionProfile path = do
+  clearScreen
+  let profile = ParsersArchivos.parseProfile path
+  profile <- profile
+  let descr = description profile
+
+  putStrLn "Esta es la informacion del perfil:"
+  putStrLn $ "\tBio: "++ bio descr
+  putStrLn $ "\tWebsite: "++ website descr
+  putStrLn $ "\tLocation: "++ location descr
+  putStrLn $ "\tIcono de perfil: "++ avatarMediaUrl profile
+
+verIconoPerfil path = do
+  clearScreen
+  let profile = ParsersArchivos.parseProfile path
+  profile <- profile
+
+  let url = avatarMediaUrl profile
+  urlEnFirefox url
+  putStrLn $ "\tIcono de perfil: "++ url
+
 
 
 
@@ -61,11 +83,12 @@ verInformacionPhone path = do
   clearScreen
   let phoneObj = ParsersArchivos.parsePhone path
   phoneObj <- phoneObj
-  putStrLn $ "Este es el número de teléfono asociado a su cuenta: "++ phoneNumber2 phoneObj
+  putStrLn $ "Este es el número de teléfono asociado a su cuenta: "++ TiposDatos2.phoneNumber phoneObj
 
 
 
-
+--urlEnFirefox :: String -> []
+urlEnFirefox url = runCommand ("firefox "++url)
 
 
 
@@ -74,7 +97,9 @@ abrirNavegador ruta archivo
   | archivo == "account.js" = abrirNavegadorAccount (ruta ++"/"++ archivo)
 
 
-abrirNavegadorAccount :: String -> IO()
 abrirNavegadorAccount path = do
-  putStrLn "Abriendo cuenta en el navegador"
-  -- runCommand "firefox andalu30.me"
+  clearScreen
+  let account = ParsersArchivos.parseAccount path
+  account <- account
+  urlEnFirefox $ "twitter.com/"++username account
+  putStrLn "Abriendo cuenta en el navegador."

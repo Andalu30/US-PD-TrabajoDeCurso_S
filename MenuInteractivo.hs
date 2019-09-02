@@ -14,7 +14,7 @@ main = menuPrincipal
 menuPrincipal :: IO()
 menuPrincipal = do
   clearScreen
-  putStrLn "Hola, bienvenido al wizard de <Nombre del programa>"
+  putStrLn "Hola, bienvenido al wizard de TweeKell"
   putStrLn "Menu principal:"
   putStrLn "Pulse enter para comenzar o escriba alguna opción"
 
@@ -36,7 +36,21 @@ menuError = do
 
 --TODO
 menuInformacion :: IO()
-menuInformacion = menuError
+menuInformacion = do
+  clearScreen
+  putStrLn "TweeKell"
+  putStrLn "Análisis de los datos privados de una cuenta de Twitter con Haskell\n"
+  putStrLn "Desarrollado por Juan Arteaga Carmona\nProgramación Declarativa - Universidad de Sevilla"
+  putStrLn "La documentación oficial de la aplicación se encuentra en el documento Documentacion.pdf"
+  putStrLn "\n - Requisitos previos:"
+  putStrLn "Para poder utilizar este programa son necesarios los datos de la cuenta de Twitter en formato JSON.\nGeneralmente, estando logueado en Twitter viaje a:\n Ajustes -> Cuenta -> Mis datos de Twitter -> Introduzca su contraseña -> Pedir datos."
+  putStrLn "\nIMPORTANTE: Dependiendo de su cuenta es posible que el proceso de recolección de datos de Twitter\ntarde varios minutos, por lo que se recomienda descargar estos datos previamente.\n"
+
+  putStrLn "\nq: Menu principal"
+  option <- getLine
+  case option of
+    "q" -> menuPrincipal
+
 
 
 menu1 :: IO()
@@ -56,6 +70,9 @@ menu2 :: String -> IO()
 menu2 ruta = do
   clearScreen
   putStrLn "Paso 1.2 - Seleccionar el archivo a utilizar"
+
+  putStrLn "Estos son los archivos que puede seleccionar: account.js, profile.js, verified.js, phone-number.js, tweet.js"
+
   putStrLn "q: Volver"
   putStr "Escriba el nombre del archivo a utilizar:  "
 
@@ -86,8 +103,8 @@ menutipoAnalisis :: String -> String -> IO()
 menutipoAnalisis ruta archivo = do
   clearScreen
   putStrLn "Paso 2 - Tipo de análisis:"
-  putStrLn "q: Volver, Intro OK"
-  putStr "Para el archivo seleccionado existen los siguientes tipos de análisis:\n"
+  putStrLn "q: Volver, Intro OK\n"
+  putStrLn "Para el archivo seleccionado existen los siguientes tipos de análisis:"
   let tipos = tipoAnalisis archivo
   putStr $ unlines tipos
   putStr "Por favor seleccione el tipo de análisis que desea realizar:\n"
@@ -105,14 +122,12 @@ menutipoAnalisis ruta archivo = do
     "5" -> AnalisisTweets.tweetMasRT (ruta++"/"++archivo)
     "6" -> AnalisisTweets.tweetMasMG (ruta++"/"++archivo)
     "7" -> AnalisisTweets.idiomas (ruta++"/"++archivo)
+    "8" -> AnalisisSimples.verIconoPerfil (ruta++"/"++archivo)
+
 
 tipoAnalisis :: String -> [String]
-{-
-  1: Ver informacion
-  2: Abrir en navegador
--}
 tipoAnalisis "account.js" = ["1: Ver informacion", "2: Abrir en navegador"]
-tipoAnalisis "profile.js" = ["1: Ver informacion"]
+tipoAnalisis "profile.js" = ["1: Ver informacion","8: Ver icono de perfil"]
 tipoAnalisis "verified.js" = ["1: Ver informacion"]
 tipoAnalisis "phone-number.js" = ["1: Ver informacion"]
 tipoAnalisis "tweet.js" = ["3: Ver tweets", "4: Ver Retweets", "5: Tweet mas retweeteado","6: Tweet con más MG","7: Idiomas mas utilizados"]

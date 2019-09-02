@@ -13,6 +13,7 @@ parseTweets
 
 
 import TiposDatos
+import TiposDatos2
 import System.Exit
 import Data.Aeson
 import qualified Data.ByteString.Lazy as B
@@ -83,9 +84,9 @@ modVeriFile string ="{" ++ (drop 79 $ reverse $ drop 4 $ reverse string)
 parsePhone path = do
   preparaPhone path
   file <- B.readFile (path++".mod")
-  let phone = decode file :: Maybe TiposDatos.Phone
+  let phone = decode file :: Maybe TiposDatos2.Phone
   case phone of
-    Nothing -> return TiposDatos.defaultPhone
+    Nothing -> return TiposDatos2.defaultPhone
     Just phone -> return phone
 
 preparaPhone:: String -> IO()

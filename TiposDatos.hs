@@ -8,17 +8,17 @@ defaultAccount,
 --Accesor methods
 phoneNumber,  email, createdVia,  username,  accountId ,  createdAt,  accountDisplayName,
 
+Description,
+bio,website,location,
+
 Profile,
 defaultProfile,
+description,avatarMediaUrl,
 
 Verified,
 defaultVerified,
 --Accesor methods
 verified,
-
-Phone,
-defaultPhone,
-phoneNumber2, --accesor
 
 Tweets,
 Tweet,
@@ -49,15 +49,20 @@ instance FromJSON Account
 defaultAccount = Account {  phoneNumber = "",  email = "", createdVia ="",  username ="",  accountId ="",  createdAt ="",  accountDisplayName =""}
 
 
-data Profile = Profile {
-  description :: String,
+data Description = Description {
   bio :: String,
   website :: String,
-  location :: String,
+  location :: String
+} deriving (Generic, Show)
+instance FromJSON Description
+defaultDescription = Description {bio="", website="", location=""}
+
+data Profile = Profile {
+  description :: Description,
   avatarMediaUrl :: String
 } deriving (Generic, Show)
 instance FromJSON Profile
-defaultProfile = Profile  { description="",bio="",website="",location="",avatarMediaUrl=""}
+defaultProfile = Profile  {description=defaultDescription, avatarMediaUrl=""}
 
 
 data Verified = Verified {
@@ -65,14 +70,6 @@ data Verified = Verified {
 } deriving (Generic, Show)
 instance FromJSON Verified
 defaultVerified = Verified {verified=False}
-
-
-data Phone = Phone {
-  phoneNumber2 :: String
-} deriving (Generic, Show)
-instance FromJSON Phone
-defaultPhone = Phone {phoneNumber2 = "555"}
-
 
 
 

@@ -3,6 +3,7 @@ Repositorio para los archivos y la documentación del trabajo de curso de la asi
 
 # Índice
 * [Ejecución del programa](#ejecución-del-programa)
+*    * [Requisitos previos](#requisitos-previos)
    * [Utilizando el archivo binario compilado](#utilizando-el-archivo-binario-compilado)
    * [Utilizando el código fuente](#utilizando-el-código-fuente)
       * [Dependencias](#dependencias)
@@ -15,6 +16,15 @@ Repositorio para los archivos y la documentación del trabajo de curso de la asi
 
 
 ## Ejecución del programa
+
+### Requisitos previos
+Para poder utilizar este programa son necesarios los datos de la cuenta de Twitter en formato JSON.
+Para más información, visite [la pagina de soporte de Twitter](https://help.twitter.com/es/managing-your-account/accessing-your-twitter-data).
+
+Generalmente, estando logueado en Twitter viaje a: Ajustes -> Cuenta -> Mis datos de Twitter -> Introduzca su contraseña -> Pedir datos.
+
+**IMPORTANTE:** Dependiendo de su cuenta es posible que el proceso de recolección de datos de Twitter tarde varios minutos, por lo que se recomienda descargar estos datos previamente.
+
 ### Utilizando el archivo binario compilado
 Si se encuentra en un equipo GNU/Linux es posible utilizar el archivo compilado ```TweeKell``` para ver el resultado final del trabajo.
 
