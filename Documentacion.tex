@@ -1,0 +1,186 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage[margin=35mm]{geometry} %Márgenes mas pequeños
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{optidef}
+\usepackage{pdfpages}
+\usepackage{float}
+\restylefloat{table}
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} %ToC con puntos en todos
+\usepackage{minted}
+
+
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+%Lo de arriba son como imports, no le heches cuenta ;)
+
+\title{
+        \textbf{TweetKell}\\
+        \medskip
+        \large{Análisis de los datos privados de una cuenta de Twitter con Haskell}\\
+        \bigskip
+        Universidad de Sevilla\\ Ingeniería Informática Tecnologías Informáticas\\
+        Programación Declarativa - Tercer curso}
+        
+\author{
+Juan Arteaga Carmona\\
+Herrera, Sevilla, España \\
+\texttt{JuanArteaga@andalu30.me}\\
+}
+
+
+
+\begin{document}
+
+%Portada con titulo e integrantes
+\maketitle
+\newpage
+
+%Índice de la memoria
+\tableofcontents
+\listoftables
+\listoffigures
+\newpage
+
+%Documento----
+\section{Introducción}
+A continuación se presenta la documentación realizada para la entrega final de la convocatoria de Septiembre del trabajo de curso de la asignatura Programación Declarativa del grado de Ingeniería Informática - Tecnologías Informáticas de la Universidad de Sevilla.
+
+\section{Expectativas}
+Al comienzo del trabajo se pretendía obtener una versión final que cumpliese con los requisitos expuestos por nuestro profesor, los cuales se pueden observar en el apartado \ref{apt:criterios}.
+
+\section{Criterios de evaluación}\label{apt:criterios}
+A continuación se muestran los criterios de evaluación a los que se someterá este trabajo, de acuerdo con la información que se encontraba en el aula virtual de la asignatura a día 2 de septiembre de 2019.
+
+\begin{itemize}
+    \item La fecha de entrega del trabajo es el día 8 de septiembre hasta media noche. La defensa del trabajo tendrá lugar la semana siguiente, del 9 al 13 (se anunciará por este canal las fechas).
+    \item El trabajo debe ser un programa de temática "libre" (dentro de los ofertados en la convocatoria de febrero, o los que se haya hablado con los profesores previamente), totalmente funcional. Para la superación del trabajo, éste debe contener como mínimo:
+    
+    \begin{itemize}
+        \item Dos aplicaciones de cada concepto básico de programación funcional visto en cada tema del primer bloque de la asignatura (temas 2,4,5,6,7,8). Es decir: al menos usar 2 funciones básicas de haskell, definir 2 funciones recursivas, 2 funciones por patrones, 2 usos de guardas, 2 usos de listas por comprensión, 2 usos de orden superior, 2 usos de tipados, etc.
+    \item Creación de un módulo
+    \item Creación de un tipo de datos nuevo y uso de éste.
+    \item Uso de al menos dos de los conceptos avanzados y librerías vistos en los temas 3, 9, 11, 12, 13, 14 o 15 (deben ser de temas distintos).
+    \end{itemize}
+    
+    
+    \item La entrega debe contener, en un archivo comprimido (zip, máximo 50 mb):
+    \begin{itemize}
+        \item El código fuente Haskell (incluyendo un pequeño readme explicando el uso del programa).
+        \item Un documento (formato libre) explicando la estructura del código y cómo se ha aplicado cada uno de los conceptos.
+    \end{itemize}
+
+
+\end{itemize}
+
+\section{Elección del tipo de trabajo}
+Se decidió que el trabajo fuese uno completamente diferente al que se propuso en la primera convocatoria \cite{trabajoPrimeraConv} ya que, tal y como se explicó en las conclusiones de este, elaborar un juego con Haskell y CodeWord no parecía ser una tarea sencilla ni interesante. 
+
+Así pues, este trabajo se centrara en la temática de Data Science y análisis de datos, con especial énfasis en la recolección de los datos a través de la librería Aeson \cite{Aeson} y en la interactividad del programa como se verá en el apartado \ref{aplicacionConceptos}.
+
+
+\section{Haskell}
+Para este proyecto utilizaremos en lenguaje de programación Haskell\cite{haskellweb}.
+Haskell es un lenguaje de programación puramente funcional creado por Paul Hodax en 1990 \cite{origenhaskell}.
+
+
+\section{Datos de Twitter}
+Al utilizar esta aplicación podremos extraer y consultar los datos de una cuenta de Twitter, para esto es necesario que dispongamos de los datos en un formato que nuestro PC pueda entender.
+
+Para conseguir los datos deberemos de hacer a Twitter una petición para que nos permita descargarlos. Esta petición se hace a traves de los ajustes de privacidad en nuestro perfil y, dependiendo del tamaño de nuestra cuenta, en unos minutos se nos permitirá acceder a ellos. \cite{twitterData}
+
+Una vez descargados, tendremos que descomprimirlos y ya podremos utilizar la aplicación.
+
+\section{Implementación}
+\subsection{Estructura del código}
+El código se encuentra estructurado en varios módulos que, además de ser un requisito para la entrega del trabajo, permiten una mayor comodidad y simplicidad a la hora de desarrollar la aplicación.
+A continuación se describen los módulos:
+ \begin{itemize}
+     \item \mint{haskell} TweeKell.hs
+     Archivo principal del programa, contiene una función main que llama al menu principal del módulo MenuInteractivo.
+     
+     \item \mint{haskell} MenuInteractivo.hs
+     Módulo encargado de generar los menús interactivos del programa además de recibir las instrucciones del usuario y llamar a la lógica correcta.
+     
+     \item \mint{haskell} TiposDatos.hs
+     Módulo encargado de definir los tipos de datos que se utilizan para decodificar los archivos JSON y mostrar la información.
+     
+     \item \mint{haskell} TiposDatos2.hs
+     Igual que TiposDatos, con la única diferencia de que este contiene las definiciones de los tipos de datos que producen alguna colisión en caso de que se encontrasen en TiposDatos.
+     
+     \item \mint{haskell} ParsersArchivos.hs
+     Módulo encargado de parsear los archivos JSON de Twitter y de crear los objetos de los tipos que se definen en TiposDatos y TiposDatos2.
+     
+     \item \mint{haskell} AnalisisSimples.hs
+     Módulo encargado de recibir el parseado realizado por ParsersArchivos y analizar y mostrar la información que el usuario ha solicitado para todos los tipos de análisis excepto para los que dependen de Tweets.
+     
+     \item \mint{haskell} AnalisisTweets.hs
+     Igual que AnalisisSimples pero centrado en los que dependen del tipo Tweet.
+ \end{itemize}
+
+
+\subsection{Aplicación de los conceptos y ajuste a los criterios de evaluación}\label{aplicacionConceptos}
+
+\begin{itemize}
+    \item Aplicaciones de conceptos básicos de programación funcional.
+    \begin{itemize}
+        \item 2 funciones básicas de Haskell
+        \item 2 funciones recursivas
+        \item 2 funciones por patrones
+        \item *2 funciones lambda
+        \item *2 listas por compresión
+        \item *2 funciones orden superior
+        \item 2 usos de guardas
+        \item 2 usos de tipados
+        \item 
+    \end{itemize}
+    
+    \item Creación de al menos un módulo
+    \item Creación de un tipo de datos y uso de este
+    \item Uso de dos conceptos avanzados
+    \begin{itemize}
+        \item Programa interactivo:
+        \item Procesamiento JSON con Aeson:
+    \end{itemize}
+    
+\end{itemize}
+
+
+
+%Bibliografía
+\begin{thebibliography}{99}
+
+\bibitem{trabajoPrimeraConv} Juan Arteaga Carmona \textit{Recreando un juego interactivo con Haskell y CodeWorld-API} \href{https://github.com/Andalu30/US-PD-TrabajoDeCurso}{github.com/Andalu30/US-PD-TrabajoDeCurso - Repositorio privado en GitHub}
+
+\bibitem{Aeson} Bryan O'Sullivan. \textit{Aeson: A fast Haskell JSON library} \href{https://github.com/bos/aeson}{github.com/bos/aeson - Repositorio en GitHub}
+
+\bibitem{haskellweb} Paul Hudak, \textit{Haskell} \href{https://www.haskell.org/}{ Web del lenguaje}.
+
+\bibitem{origenhaskell} Hudak, Paul; Hughes, John; Peyton Jones, Simon; Wadler, Philip (2007), \textit{A History of Haskell: Being Lazy with Class} ISBN 978-1-59593-766-7.
+
+\bibitem{twitterData} Twitter \textit{Cómo acceder a tus datos de Twitter} \href{https://help.twitter.com/es/managing-your-account/accessing-your-twitter-data}{Enlace a la web de asistencia de Twitter}
+
+
+
+
+
+
+
+\end{thebibliography}
+
+
+\section*{Anexo}
+
+
+
+\end{document}
