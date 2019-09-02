@@ -45,7 +45,7 @@ menuInformacion = do
   putStrLn "\n - Requisitos previos:"
   putStrLn "Para poder utilizar este programa son necesarios los datos de la cuenta de Twitter en formato JSON.\nGeneralmente, estando logueado en Twitter viaje a:\n Ajustes -> Cuenta -> Mis datos de Twitter -> Introduzca su contraseña -> Pedir datos."
   putStrLn "\nIMPORTANTE: Dependiendo de su cuenta es posible que el proceso de recolección de datos de Twitter\ntarde varios minutos, por lo que se recomienda descargar estos datos previamente.\n"
-
+  putStrLn "Ademas, si desea utilizar las funciones de mostrar imágenes y consultar su perfil será necesario que tenga instalado el navegador Firefox.\nConsulte el gestor de paquetes de su distribución para asegurarse de que lo tiene instalado."
   putStrLn "\nq: Menu principal"
   option <- getLine
   case option of

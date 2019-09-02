@@ -96,7 +96,6 @@ abrirNavegador :: String -> String -> IO()
 abrirNavegador ruta archivo
   | archivo == "account.js" = abrirNavegadorAccount (ruta ++"/"++ archivo)
 
-
 abrirNavegadorAccount path = do
   clearScreen
   let account = ParsersArchivos.parseAccount path

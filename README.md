@@ -3,7 +3,7 @@ Repositorio para los archivos y la documentación del trabajo de curso de la asi
 
 # Índice
 * [Ejecución del programa](#ejecución-del-programa)
-*    * [Requisitos previos](#requisitos-previos)
+   * [Requisitos previos](#requisitos-previos)
    * [Utilizando el archivo binario compilado](#utilizando-el-archivo-binario-compilado)
    * [Utilizando el código fuente](#utilizando-el-código-fuente)
       * [Dependencias](#dependencias)
@@ -24,6 +24,8 @@ Para más información, visite [la pagina de soporte de Twitter](https://help.tw
 Generalmente, estando logueado en Twitter viaje a: Ajustes -> Cuenta -> Mis datos de Twitter -> Introduzca su contraseña -> Pedir datos.
 
 **IMPORTANTE:** Dependiendo de su cuenta es posible que el proceso de recolección de datos de Twitter tarde varios minutos, por lo que se recomienda descargar estos datos previamente.
+
+Ademas, si desea utilizar las funciones de mostrar imágenes y consultar su perfil será necesario que tenga instalado el navegador Firefox. Consulte el gestor de paquetes de su distribución para asegurarse de que lo tiene instalado.
 
 ### Utilizando el archivo binario compilado
 Si se encuentra en un equipo GNU/Linux es posible utilizar el archivo compilado ```TweeKell``` para ver el resultado final del trabajo.

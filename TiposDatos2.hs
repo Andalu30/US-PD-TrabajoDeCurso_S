@@ -16,4 +16,4 @@ data Phone = Phone {
   phoneNumber :: String
 } deriving (Generic, Show)
 instance FromJSON Phone
-defaultPhone = Phone {phoneNumber = "555"}
+defaultPhone = Phone {phoneNumber = ""}
