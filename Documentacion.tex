@@ -16,6 +16,7 @@
 \usepackage{tocloft}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} %ToC con puntos en todos
 \usepackage{minted}
+\graphicspath{{res/}}
 
 
 
@@ -49,7 +50,7 @@ Herrera, Sevilla, España \\
 %Índice de la memoria
 \tableofcontents
 % \listoftables
-% \listoffigures
+\listoffigures
 \newpage
 
 %Documento----
@@ -278,6 +279,56 @@ abrirNavegador ruta archivo
     \end{itemize}
     
 \end{itemize}
+
+\section{Uso de la aplicación}
+Para usar la aplicación se puede ejecutar el archivo compilado en cualquier sistema GNU/Linux o, si se prefiere, se puede utilizar el código fuente.
+Una vez ejecutado deberiamos de ver el menu principal de la aplicación tal y como muestra la figura \ref{fig_menuprincipal}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{menuPrincipal.png}
+    \caption{Menú principal de la aplicación}
+    \label{fig_menuprincipal}
+\end{figure}
+\medskip
+
+A continuación, siguiendo los menus introduciremos la ruta al archivo que queremos analizar y comprobaremos que lo hemos introducido correctamente tal y como se ve en la figura \ref{fig_comprobacion}
+
+\begin{figure}[h]
+    \centering
+	\includegraphics[width=0.75\textwidth]{comprobacion.png}
+    \caption{Pantalla de confirmación de la ruta del archivo a analizar}
+    \label{fig_comprobacion}
+\end{figure}
+\medskip
+
+Tras esto, podremos seleccionar el tipo de análisis que queremos realizarle al archivo, un ejemplo que podemos ver en la figura \ref{fig_tipoAnalisis} serían los tipos de analisis sobre el archivo \textit{Tweet.js}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{tiposanalisis.png}
+    \caption{Distintos tipos de análisis que se pueden realizar sobre el archivo \textit{Tweet.js}}
+    \label{fig_tipoAnalisis}
+\end{figure}
+\medskip
+
+Finalmente, tras seleccionar el tipo de análisis que queremos ver nos encontraremos con una pantalla que nos presentará los resultados. Un ejemplo seria la pantalla de la figura \ref{fig_resultados}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{analisisdone.png}
+    \caption{Pantalla de resultados del análisis}
+    \label{fig_resultados}
+\end{figure}
+
+
+
+\subsection{Utilizando el archivo compilado}
+El archivo compilado \textit{TweeKell} se debe de poder ejecutar en cualquier sistema GNU/Linux sin problemas\footnote{Testeado en varios sistemas corriendo Fedora Workstation, Manjaro Linux, Ubuntu Server y Arch Linux} mediante la ejecución del comando \textit{./Tweekell}. Tras esto podremos ver el menu principal tal y como se ve en la figura \ref{fig_menuprincipal}
+
+\subsection{Utilizando el código fuente}
+Si se prefiere utilizar el código fuente para ejecutar la aplicación se podrá, por ejemplo, utilizar ghci. En este caso, ejecute \textit{ghci} en una terminal, cargue el archivo \textit{TweeKell.hs} con \textit{:l Tweekell.hs} y ejecute \textit{main}, debería de ver el menu principal.
+
 
 \section{Posibles mejoras}
 \subsection{Analizar más información}
