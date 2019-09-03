@@ -9,6 +9,7 @@ import System.Console.ANSI
 import AnalisisSimples
 import AnalisisTweets
 
+main :: IO()
 main = menuPrincipal
 
 menuPrincipal :: IO()
@@ -34,7 +35,6 @@ menuError = do
   putStr "Lo sentimos se ha producido un error"
   exitSuccess
 
---TODO
 menuInformacion :: IO()
 menuInformacion = do
   clearScreen

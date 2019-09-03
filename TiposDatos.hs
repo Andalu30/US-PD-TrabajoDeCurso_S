@@ -89,4 +89,3 @@ data Tweets = Tweets {
   tweets :: [Tweet]
 } deriving (Generic, Show)
 instance FromJSON Tweets
---defaultTweets = Tweets {}

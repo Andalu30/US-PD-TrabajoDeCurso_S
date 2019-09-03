@@ -34,7 +34,7 @@ test4 = tweetMasMG "/home/andalu30/twitter-data/tweet.js"
 test5 = idiomas "/home/andalu30/twitter-data/tweet.js"
 
 
---verTweets :: String -> IO()
+verTweets :: String -> IO()
 verTweets path = do
   clearScreen
   let tweets = ParsersArchivos.parseTweets path
@@ -57,7 +57,7 @@ imprimeTextosTweets (x:ls) = do  --Recursiva
   imprimeTextosTweets ls
 
 
-
+verRetweets :: String -> IO()
 verRetweets path = do
   clearScreen
   let tweets = ParsersArchivos.parseTweets path
@@ -72,13 +72,10 @@ verRetweets path = do
   putStrLn" retweets"
 
 
-
-
-
-
+ordenaTuplasSND :: [(a, String)] -> [(a, String)]
 ordenaTuplasSND = sortBy (flip compare `on` snd)
 
-
+tweetMasRT :: String -> IO ()
 tweetMasRT path = do
   clearScreen
   let tweets = ParsersArchivos.parseTweets path
@@ -95,7 +92,7 @@ tweetMasRT path = do
   putStrLn" RTs"
 
 
-
+tweetMasMG :: String -> IO ()
 tweetMasMG path = do
   clearScreen
   let tweets = ParsersArchivos.parseTweets path
@@ -112,7 +109,7 @@ tweetMasMG path = do
   putStrLn" 'me gusta'"
 
 
-
+idiomas :: String -> IO ()
 idiomas path = do
   clearScreen
   let tweets = ParsersArchivos.parseTweets path
@@ -135,6 +132,8 @@ idiomas path = do
   putStr "El idioma más utilizado en los tweets es:\n\t"
   print maxLang
 
+
+cuentaIdiomas :: Foldable t => [t a] -> [Int] -> [Int]
 cuentaIdiomas [] ac = ac
 cuentaIdiomas (x:xs) ac = do
   let newac = ac ++ [(length x)]

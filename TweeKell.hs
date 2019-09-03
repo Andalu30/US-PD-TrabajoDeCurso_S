@@ -1,4 +1,6 @@
 import MenuInteractivo
 
---LOAD "*",8,1 ;)
+main :: IO()
 main = MenuInteractivo.menuPrincipal
+
+--LOAD "*",8,1 ;)

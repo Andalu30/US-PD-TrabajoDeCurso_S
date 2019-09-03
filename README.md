@@ -58,8 +58,31 @@ Si desea utilizar `ghci`, cargue el archivo con ```:l TweeKell``` y ejecute ```m
 
 ## Archivos del repositorio
 
+
+  * ```TweeKell.hs```
+    Archivo principal del programa, contiene una función main que llama al menu principal del módulo MenuInteractivo.
+
+  * ```MenuInteractivo.hs```
+    Módulo encargado de generar los menús interactivos del programa además de recibir las instrucciones del usuario y llamar a la lógica correcta.
+
+  * ```TiposDatos.hs```
+    Módulo encargado de definir los tipos de datos que se utilizan para decodificar los archivos JSON y mostrar la información.
+
+  * ```TiposDatos2.hs```
+    Igual que TiposDatos, con la única diferencia de que este contiene las definiciones de los tipos de datos que producen alguna colisión en caso de que se encontrasen en TiposDatos.
+
+  * ```ParsersArchivos.hs```
+    Módulo encargado de parsear los archivos JSON de Twitter y de crear los objetos de los tipos que se definen en TiposDatos y TiposDatos2.
+
+  * ```AnalisisSimples.hs```
+    Módulo encargado de recibir el parseado realizado por ParsersArchivos y analizar y mostrar la información que el usuario ha solicitado para todos los tipos de análisis excepto para los que dependen de Tweets.
+
+  * ```AnalisisTweets.hs```
+    Igual que AnalisisSimples pero centrado en los que dependen del tipo Tweet.
+
+
 ## Documentación
-La documentacion del proyecto se encuentra en el archivo Documentacion.pdf
+La documentación del proyecto se encuentra en el archivo Documentacion.pdf
 
 ## Información del autor
 El trabajo ha sido realizado por el alumno Juan Arteaga Carmona, estudiante del grado de Ingeniería Informática - Tecnologías Informaticas, de la Universidad de Sevilla.

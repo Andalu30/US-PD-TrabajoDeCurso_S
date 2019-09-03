@@ -52,7 +52,7 @@ verInformacionVerified path = do
 
 
 
-
+verInformacionProfile :: String -> IO()
 verInformacionProfile path = do
   clearScreen
   let profile = ParsersArchivos.parseProfile path
@@ -65,6 +65,8 @@ verInformacionProfile path = do
   putStrLn $ "\tLocation: "++ location descr
   putStrLn $ "\tIcono de perfil: "++ avatarMediaUrl profile
 
+
+verIconoPerfil :: String -> IO()
 verIconoPerfil path = do
   clearScreen
   let profile = ParsersArchivos.parseProfile path
@@ -87,7 +89,7 @@ verInformacionPhone path = do
 
 
 
---urlEnFirefox :: String -> []
+urlEnFirefox :: [Char] -> IO ProcessHandle
 urlEnFirefox url = runCommand ("firefox "++url)
 
 
@@ -95,7 +97,9 @@ urlEnFirefox url = runCommand ("firefox "++url)
 abrirNavegador :: String -> String -> IO()
 abrirNavegador ruta archivo
   | archivo == "account.js" = abrirNavegadorAccount (ruta ++"/"++ archivo)
+  | archivo == "profile.js" = abrirNavegadorAccount (ruta ++"/"++ archivo)
 
+abrirNavegadorAccount :: String -> IO()
 abrirNavegadorAccount path = do
   clearScreen
   let account = ParsersArchivos.parseAccount path

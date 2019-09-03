@@ -19,7 +19,7 @@ import Data.Aeson
 import qualified Data.ByteString.Lazy as B
 
 
-
+parseAccount :: String -> IO Account
 parseAccount path = do
   preparaAccount path
   file <- B.readFile (path++".mod")
@@ -34,12 +34,13 @@ preparaAccount path = do
   let mod = modAccFile file
   writeFile (path++".mod") mod
   return()
+
 modAccFile :: String -> String
 modAccFile string = drop 45 $ reverse $ drop 3 $ reverse string
 
 
 
---parseProfile
+parseProfile :: String -> IO Profile
 parseProfile path = do
   preparaProfile path
   file <- B.readFile (path++".mod")
@@ -54,13 +55,14 @@ preparaProfile path = do
   let mod = modProFile file
   writeFile (path++".mod") mod
   return()
+
 modProFile :: String -> String
 modProFile string = drop 45 $ reverse $ drop 3 $ reverse string
 
 
 
 
---parseVerified
+parseVerified :: String -> IO Verified
 parseVerified path = do
   preparaVerified path
   file <- B.readFile (path++".mod")
@@ -75,12 +77,13 @@ preparaVerified path = do
   let mod = modVeriFile file
   writeFile (path++".mod") mod
   return()
+
 modVeriFile :: String -> String
 modVeriFile string ="{" ++ (drop 79 $ reverse $ drop 4 $ reverse string)
 
 
 
---parsePhone
+parsePhone :: String -> IO Phone
 parsePhone path = do
   preparaPhone path
   file <- B.readFile (path++".mod")
@@ -95,6 +98,7 @@ preparaPhone path = do
   let mod = modPhoneFile file
   writeFile (path++".mod") mod
   return()
+
 modPhoneFile :: String -> String
 modPhoneFile string ="{" ++ (drop 50 $ reverse $ drop 4 $ reverse string)
 
@@ -103,7 +107,7 @@ modPhoneFile string ="{" ++ (drop 50 $ reverse $ drop 4 $ reverse string)
 
 
 
---parseTweets :: String -> [Tweet]
+parseTweets :: String -> IO [Tweet]
 parseTweets path = do
   preparaTweets path
   file <- B.readFile (path++".mod")
@@ -118,5 +122,6 @@ preparaTweets path = do
   let mod = modTweetsFile file
   writeFile (path++".mod") mod
   return()
+
 modTweetsFile :: String -> String
 modTweetsFile string = drop 25 string
