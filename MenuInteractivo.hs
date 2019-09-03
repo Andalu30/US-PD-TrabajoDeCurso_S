@@ -32,7 +32,7 @@ menuPrincipal = do
 
 menuError :: IO()
 menuError = do
-  putStr "Lo sentimos se ha producido un error"
+  putStrLn "Lo sentimos se ha producido un error"
   exitSuccess
 
 menuInformacion :: IO()
@@ -58,7 +58,7 @@ menu1 = do
   clearScreen
   putStrLn "Paso 1.1 - Preparar datos:"
   putStrLn "\nq: Salir"
-  putStr "Escriba la ruta completa a la carpeta del archivo zip descomprimido (Sin la barra final): "
+  putStrLn "Escriba la ruta completa a la carpeta del archivo zip descomprimido (Sin la barra final): "
   option <- getLine
   case option of
     "q" -> menuPrincipal
@@ -74,7 +74,7 @@ menu2 ruta = do
   putStrLn "Estos son los archivos que puede seleccionar: account.js, profile.js, verified.js, phone-number.js, tweet.js"
 
   putStrLn "q: Volver"
-  putStr "Escriba el nombre del archivo a utilizar:  "
+  putStrLn "Escriba el nombre del archivo a utilizar:  "
 
   option <- getLine
   case option of
@@ -89,7 +89,7 @@ menu3 ruta archivo = do
   clearScreen
   putStrLn "Paso 1.3 - Comprobación:"
   putStrLn "q: Volver, Intro OK"
-  putStr "Asegurese de que la ruta introducida es correcta: "
+  putStrLn "Asegurese de que la ruta introducida es correcta: "
   let rutacompleta = ruta ++ "/" ++ archivo
   print rutacompleta
 
@@ -106,8 +106,8 @@ menutipoAnalisis ruta archivo = do
   putStrLn "q: Volver, Intro OK\n"
   putStrLn "Para el archivo seleccionado existen los siguientes tipos de análisis:"
   let tipos = tipoAnalisis archivo
-  putStr $ unlines tipos
-  putStr "Por favor seleccione el tipo de análisis que desea realizar:\n"
+  putStrLn $ unlines tipos
+  putStrLn "Por favor seleccione el tipo de análisis que desea realizar:\n"
   option <- getLine
   case option of
     {-
