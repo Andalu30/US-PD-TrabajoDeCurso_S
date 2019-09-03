@@ -48,8 +48,8 @@ Herrera, Sevilla, España \\
 
 %Índice de la memoria
 \tableofcontents
-\listoftables
-\listoffigures
+% \listoftables
+% \listoffigures
 \newpage
 
 %Documento----
@@ -132,29 +132,163 @@ A continuación se describen los módulos:
 \subsection{Aplicación de los conceptos y ajuste a los criterios de evaluación}\label{aplicacionConceptos}
 
 \begin{itemize}
-    \item Aplicaciones de conceptos básicos de programación funcional.
+    \item \textbf{Aplicaciones de conceptos básicos de programación funcional.}
     \begin{itemize}
         \item 2 funciones básicas de Haskell
-        \item 2 funciones recursivas
+        
+        El uso de funciones básicas de Haskell se puede observar por todo el trabajo, por ejemplo, se puede observar en dos de las funciones mas simples y cortas:
+        \medskip
+        \begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,linenos]{haskell}
+modPhoneFile :: String -> String
+modPhoneFile string ="{" ++ (drop 50 $ reverse $ drop 4 $ reverse string)
+
+modAccFile :: String -> String
+modAccFile string = drop 45 $ reverse $ drop 3 $ reverse string
+        \end{minted}
+        \medskip
+        
+        \item 2 funciones recursivas:
+        
+        A continuación podemos ver dos funciones recursivas de este trabajo, una de ellas se encarga de imprimir los textos de una lista de Tweets y otra se encarga de contar el número de apariciones de los distintos idiomas de los tweets.
+        
+        \begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,linenos]{haskell}
+        imprimeTextosTweets :: [String] -> IO()
+        imprimeTextosTweets [] = putStrLn "" --Base
+        imprimeTextosTweets (x:ls) = do  --Recursiva
+          putStr "\n->"
+          print x
+          imprimeTextosTweets ls
+          
+        cuentaIdiomas :: Foldable t => [t a] -> [Int] -> [Int]
+        cuentaIdiomas [] ac = ac
+        cuentaIdiomas (x:xs) ac = do
+          let newac = ac ++ [(length x)]
+          cuentaIdiomas xs newac
+            \end{minted}
+        \medskip
         \item 2 funciones por patrones
-        \item *2 funciones lambda
-        \item *2 listas por compresión
-        \item *2 funciones orden superior
+        
+        Las dos funciones recursivas anteriores están, claramente, definidas por patrones. Sin embargo no son las únicas. Un ejemplo de otra función sería el siguiente:
+        \begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,linenos]{haskell}
+tipoAnalisis :: String -> [String]
+tipoAnalisis "account.js" = ["1: Ver informacion", "2: Abrir en navegador"]
+tipoAnalisis "profile.js" = ["1: Ver informacion","8: Ver icono de perfil"]
+tipoAnalisis "verified.js" = ["1: Ver informacion"]
+tipoAnalisis "phone-number.js" = ["1: Ver informacion"]
+tipoAnalisis "tweet.js" = ["3: Ver tweets", "4: Ver Retweets", "5: Tweet mas retweeteado",
+                           "6: Tweet con más MG","7: Idiomas mas utilizados"]
+            \end{minted}
+
+        \medskip
         \item 2 usos de guardas
+        
+        En cuanto a funciones con guardas, dos ejemplos podrían ser:
+        
+        \begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,linenos]{haskell}
+verInformacion :: String -> String -> IO()
+verInformacion ruta archivo
+  | archivo == "account.js" = verInformacionAccount (ruta ++"/"++ archivo)
+  | archivo == "profile.js" = verInformacionProfile (ruta ++"/"++ archivo)
+  | archivo == "verified.js" = verInformacionVerified (ruta ++"/"++ archivo)
+  | archivo == "phone-number.js" = verInformacionPhone (ruta ++"/"++ archivo)
+  
+abrirNavegador :: String -> String -> IO()
+abrirNavegador ruta archivo
+  | archivo == "account.js" = abrirNavegadorAccount (ruta ++"/"++ archivo)
+  | archivo == "profile.js" = abrirNavegadorAccount (ruta ++"/"++ archivo)
+            \end{minted}
+        
         \item 2 usos de tipados
-        \item 
+        
+        En cuanto al uso de tipados, debido a que Haskell es un lenguaje fuertemente tipado se deben de usar sin excepción. En las funciones de ejemplo anteriores se puede ver como, además, se escribe el tipo de la función para que el lenguaje nisiquiera tenga que inferirlo.
+        
+        
     \end{itemize}
     
-    \item Creación de al menos un módulo
-    \item Creación de un tipo de datos y uso de este
-    \item Uso de dos conceptos avanzados
+    \item \textbf{Creación de al menos un módulo}
+    
+    Un ejemplo de la creación de un módulo en este trabajo sería el módulo TiposDatos, que se encarga de definir parte de los distintos tipos de datos que se usan en el trabajo.
+    
+    \item \textbf{Creación de un tipo de datos y uso de este}
+    
+    Utilizando el mismo archivo que en el apartado anterior, podemos ver varias definiciones de tipos de datos, por ejemplo uno de los mas interesantes sería el tipo de datos Tweet:
+    
+        \begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,linenos]{haskell}
+            data Tweet = Tweet {
+              favorite_count :: String,
+              retweet_count :: String,
+              created_at :: String,
+              full_text :: String,
+              lang :: String
+            } deriving (Generic, Show)
+            instance FromJSON Tweet
+        \end{minted}
+        
+    En este tipo de datos recogemos 5 de entre todos los parámetros que nos encontramos en los archivos de Twitter.
+    
+    
+    \item \textbf{Uso de dos conceptos avanzados}
+    
+    En cuanto a uso de conceptos avanzados, como este trabajo se centraba en Data Science y analisis de datos, uno de los mas importantes ha sido el procesamiento de archivos JSON con Aeson
     \begin{itemize}
-        \item Programa interactivo:
         \item Procesamiento JSON con Aeson:
+        
+        Para decodificar archivos JSON se ha usado la libreria Aeson\cite{Aeson}, que nos ha permitido recojer los datos de los archivos sin problemas.
+        Todo esto se ha realizado con las distintas funciones del archivo \textit{ParsersArchivos.hs}. A continuación podemos ver un ejemplo de parseado de los Tweets.
+        
+        \begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,linenos]{haskell}
+            parseTweets :: String -> IO [Tweet]
+            parseTweets path = do
+              preparaTweets path
+              file <- B.readFile (path++".mod")
+              let tweets = decode file :: Maybe [Tweet]
+              case tweets of
+                Nothing -> exitSuccess
+                Just tweets -> return tweets
+        \end{minted}
+        \medskip
+        \item Programa interactivo:
+        
+        En cuanto al segundo concepto avanzado, la primera idea fue utilizar la documentación de la asignatura para intentar implementar una paralelización sencilla. Sin embargo, finalmente se decidió implementar un programa interactivo, ya que sería una solución mas sencilla y rápida, además de que el tamaño de los datos de una cuenta de Twitter, especialmente de la parte que analizamos nosotros, no es tan grande como para necesitar paralelismo o clustering.
+        
+        Esta interactividad se hace con las funciones del módulo \textit{MenuInteractivo.hs}, por ejemplo, aqui podemos ver el menú principal de la aplicación:
+        
+        \begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,linenos]{haskell}
+            menuPrincipal :: IO()
+            menuPrincipal = do
+              clearScreen
+              putStrLn "Hola, bienvenido al wizard de TweeKell"
+              putStrLn "Menu principal:"
+              putStrLn "Pulse enter para comenzar o escriba alguna opción"
+            
+              putStrLn "\ni: Información"
+              putStrLn "q: Salir"
+            
+              option <- getLine
+              case option of
+                "i" -> menuInformacion
+                "q" -> exitSuccess
+                _ -> menu1
+        \end{minted}
+        
+        Como se puede observar, se espera la interacción del usuario y se responde correctamente dependiendo de lo elegido.
+        
+        
+        
     \end{itemize}
     
 \end{itemize}
 
+\section{Posibles mejoras}
+\subsection{Analizar más información}
+
+Una de las posibles mejoras a este trabajo, sería la de analizar más información de la que se analiza actualmente. De entre los 45 archivos que Twitter nos ofrece, apenas analizamos 5 de ellos.
+Los archivos más interesantes de analizar serian posiblemente \textit{like.js}, \textit{ad-engagement.js} y \textit{ad-impressions.js}.
+
+\subsection{Paralelización y computación distribuida}
+Otra posible mejora al trabajo sería la implementación de paralelismo en los análisis para que de esta forma podamos aprovechar la gran potencia de los PCs actuales. 
+
+Otra forma de escalar nuestra aplicación para que soporte grandes cantidades de datos sería la de utilizar computación distribuida. Un ejemplo de esto sería Apache Spark\cite{spark}, que nos permitiría crear clusters para poder analizar una gran cantidad de información.
 
 
 %Bibliografía
@@ -170,17 +304,13 @@ A continuación se describen los módulos:
 
 \bibitem{twitterData} Twitter \textit{Cómo acceder a tus datos de Twitter} \href{https://help.twitter.com/es/managing-your-account/accessing-your-twitter-data}{Enlace a la web de asistencia de Twitter}
 
-
-
+\bibitem{spark} The Apache Software Foundation \textit{Apache Spark, Lightning-fast unified analytics engine} \href{https://spark.apache.org
+}{Enlace a la web}
 
 
 
 
 \end{thebibliography}
-
-
-\section*{Anexo}
-
 
 
 \end{document}
