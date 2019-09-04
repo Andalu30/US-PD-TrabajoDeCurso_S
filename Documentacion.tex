@@ -153,19 +153,19 @@ modAccFile string = drop 45 $ reverse $ drop 3 $ reverse string
         A continuación podemos ver dos funciones recursivas de este trabajo, una de ellas se encarga de imprimir los textos de una lista de Tweets y otra se encarga de contar el número de apariciones de los distintos idiomas de los tweets.
         
         \begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,linenos]{haskell}
-        imprimeTextosTweets :: [String] -> IO()
-        imprimeTextosTweets [] = putStrLn "" --Base
-        imprimeTextosTweets (x:ls) = do  --Recursiva
-          putStr "\n->"
-          print x
-          imprimeTextosTweets ls
-          
-        cuentaIdiomas :: Foldable t => [t a] -> [Int] -> [Int]
-        cuentaIdiomas [] ac = ac
-        cuentaIdiomas (x:xs) ac = do
-          let newac = ac ++ [(length x)]
-          cuentaIdiomas xs newac
-            \end{minted}
+imprimeTextosTweets :: [String] -> IO()
+imprimeTextosTweets [] = putStrLn "" --Base
+imprimeTextosTweets (x:ls) = do  --Recursiva
+  putStr "\n->"
+  print x
+  imprimeTextosTweets ls
+  
+cuentaIdiomas :: Foldable t => [t a] -> [Int] -> [Int]
+cuentaIdiomas [] ac = ac
+cuentaIdiomas (x:xs) ac = do
+  let newac = ac ++ [(length x)]
+  cuentaIdiomas xs newac
+    \end{minted}
         \medskip
         \item 2 funciones por patrones
         
@@ -215,15 +215,15 @@ abrirNavegador ruta archivo
     Utilizando el mismo archivo que en el apartado anterior, podemos ver varias definiciones de tipos de datos, por ejemplo uno de los mas interesantes sería el tipo de datos Tweet:
     
         \begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,linenos]{haskell}
-            data Tweet = Tweet {
-              favorite_count :: String,
-              retweet_count :: String,
-              created_at :: String,
-              full_text :: String,
-              lang :: String
-            } deriving (Generic, Show)
-            instance FromJSON Tweet
-        \end{minted}
+data Tweet = Tweet {
+    favorite_count :: String,
+    retweet_count :: String,
+    created_at :: String,
+    full_text :: String,
+    lang :: String
+} deriving (Generic, Show)
+instance FromJSON Tweet
+\end{minted}
         
     En este tipo de datos recogemos 5 de entre todos los parámetros que nos encontramos en los archivos de Twitter.
     
@@ -237,15 +237,15 @@ abrirNavegador ruta archivo
         Para decodificar archivos JSON se ha usado la libreria Aeson\cite{Aeson}, que nos ha permitido recojer los datos de los archivos sin problemas.
         Todo esto se ha realizado con las distintas funciones del archivo \textit{ParsersArchivos.hs}. A continuación podemos ver un ejemplo de parseado de los Tweets.
         
-        \begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,linenos]{haskell}
-            parseTweets :: String -> IO [Tweet]
-            parseTweets path = do
-              preparaTweets path
-              file <- B.readFile (path++".mod")
-              let tweets = decode file :: Maybe [Tweet]
-              case tweets of
-                Nothing -> exitSuccess
-                Just tweets -> return tweets
+\begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,linenos]{haskell}
+parseTweets :: String -> IO [Tweet]
+parseTweets path = do
+    preparaTweets path
+    file <- B.readFile (path++".mod")
+    let tweets = decode file :: Maybe [Tweet]
+        case tweets of
+            Nothing -> exitSuccess
+            Just tweets -> return tweets
         \end{minted}
         \medskip
         \item Programa interactivo:
@@ -255,21 +255,21 @@ abrirNavegador ruta archivo
         Esta interactividad se hace con las funciones del módulo \textit{MenuInteractivo.hs}, por ejemplo, aqui podemos ver el menú principal de la aplicación:
         
         \begin{minted}[frame=lines,framesep=2mm,fontsize=\footnotesize,linenos]{haskell}
-            menuPrincipal :: IO()
-            menuPrincipal = do
-              clearScreen
-              putStrLn "Hola, bienvenido al wizard de TweeKell"
-              putStrLn "Menu principal:"
-              putStrLn "Pulse enter para comenzar o escriba alguna opción"
-            
-              putStrLn "\ni: Información"
-              putStrLn "q: Salir"
-            
-              option <- getLine
-              case option of
-                "i" -> menuInformacion
-                "q" -> exitSuccess
-                _ -> menu1
+menuPrincipal :: IO()
+menuPrincipal = do
+    clearScreen
+    putStrLn "Hola, bienvenido al wizard de TweeKell"
+    putStrLn "Menu principal:"
+    putStrLn "Pulse enter para comenzar o escriba alguna opción"
+
+    putStrLn "\ni: Información"
+    putStrLn "q: Salir"
+
+    option <- getLine
+    case option of
+        "i" -> menuInformacion
+        "q" -> exitSuccess
+        _ -> menu1
         \end{minted}
         
         Como se puede observar, se espera la interacción del usuario y se responde correctamente dependiendo de lo elegido.
